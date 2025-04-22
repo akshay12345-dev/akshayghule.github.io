@@ -1,0 +1,109 @@
+<HTML>
+<HEAD>
+<STYLE>
+  #map {
+  margin:0 auto;
+  width: 100%;
+  height: 80%;
+}
+
+</STYLE>
+
+<SCRIPT>
+function initMap() {
+  var locations = [
+  
+  ['<a href="#"><div style="color:red"><b>McKesson</div></b></a>', 32.819595, -96.945419, 5],
+  ['<a href="#"><div style="color:red"><b>Atos Global Tooling Services (CMF)</div></b></a>', -38.099998, 147.066666, 6],
+  ['<a href="#"><div style="color:red"><b>Bahlsen GmbH & Co. KG</div></b></a>', 52.373920, 9.735603, 7],
+  ['<a href="#"><div style="color:red"><b>GIM</div></b></a>', 40.730610, -73.935242, 8],
+  ['<a href="#"><div style="color:red"><b>KCS</div></b></a>', 37.432335, -121.899574, 9],
+  ['<a href="#"><div style="color:red"><b>CNA</div></b></a>', 41.881832,  -87.623177, 10],
+  ['<a href="#"><div style="color:red"><b>Honda UK Manufacturing</div></b></a>', 51.59310,  -1.727400, 11],
+  ['<a href="#"><div style="color:red"><b>Enterprise holdings</div></b></a>', 38.6432563,  -90.3453032, 12],
+  ['<a href="#"><div style="color:red"><b>RBI</div></b></a>', 26.12051927,  92.0061675, 13]
+  
+  
+  
+  
+/*
+ * Next point on map
+ *   -Notice how the last number within the brackets incrementally increases from the prior marker
+ *   -Use http://itouchmap.com/latlong.html to get Latitude and Longitude of a specific address
+ *   -Follow the model below:
+ *      ['<b>Name 3</b><br>Address Line 1<br>City, ST Zipcode<br>Phone: ###-###-####<br><a href="#" target="_blank">Link<a> of some sort.', ##.####, -##.####, #]
+ */
+];
+ var locations1 = [
+ 
+        {lat: 32.819595, lng: -96.945419, color: 'yellow'},
+        {lat: -38.099998, lng: 147.066666, color: 'green'},
+		{lat: 52.373920, lng: 9.735603, color: 'blue'},
+		{lat: 40.730610, lng: -73.935242, color: 'orange'},
+		{lat: 40.730610, lng: -73.935242, color: 'cyan'},
+		{lat: 37.432335, lng: -121.899574, color: 'lightcoral'},
+		{lat: 41.881832, lng: -87.623177, color: 'orchid'},
+		{lat: 51.59310, lng: -1.727400, color: 'steelblue'},
+		{lat: 38.6432563, lng: -90.3453032, color: 'tomato'},
+		{lat: 26.12051927, lng: 92.0061675, color: 'brown'}
+    ];
+
+var map = new google.maps.Map(document.getElementById('map'), {
+  zoom: 1.8,
+  /* Zoom level of your map */
+  center: new google.maps.LatLng(20.5937, 40.9629),
+  /* coordinates for the center of your map */
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+});
+
+var infowindow = new google.maps.InfoWindow();
+var on = true;
+var intervalSeconds = 0.5;
+
+var marker, i;
+
+for (i = 0; i < locations.length; i++) {
+  marker = new google.maps.Marker({
+    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+    map: map,
+	icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+				fillColor: "green",
+                
+                fillOpacity: 0.8,
+                strokeWeight: 0,
+                scale: 8
+            },
+            
+  });
+ 
+ 
+  
+
+
+  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+    return function() {
+      infowindow.setContent(locations[i][0]);
+      infowindow.open(map, marker);
+    }
+  })(marker, i));
+  google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+    return function() {
+        infowindow.setContent(locations[i][0]);
+        infowindow.open(map,marker);
+    }
+    })(marker, i));
+}
+
+}
+window.addEventListener('load', initMap);
+</SCRIPT>
+</HEAD>
+<BODY>
+<div id="map"></div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR1_QrlmCQMqe16gEasfDL-iN6jxNIfFk&callback=initialize_map">
+    </script>
+<script src="script.js"></script>
+
+</BODY>
+</HTML>

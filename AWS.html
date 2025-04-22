@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+<STYLE>
+  #map {
+  margin:0 auto;
+  width: 100%;
+  height: 80%;
+}
+
+
+</STYLE>
+
+<SCRIPT>
+function initMap() {
+  var locations = [
+  ['<a href="#"><div style="color:red"><b>Philips A3S</div></b></a>', 52.377956, 4.89707, 4],
+  ['<a href="#"><div style="color:red"><b>Britvic</div></b></a>', 52.412811,  -1.778197, 5],
+  ['<a href="#"><div style="color:red"><b>Karstadt</div></b></a>', 51.0467643184, 13.7380445253, 7],
+  ['<a href="#"><div style="color:red"><b>AGFA</div></b></a>', 59.458217, 18.277688, 8],
+  ['<a href="#"><div style="color:red"><b>Siemens ADP SAP</div></b></a>', 51.050407, 13.737262, 9],
+  ['<a href="#"><div style="color:red"><b>Flemish Govt.</div></b></a>', 51.049999, 3.733333, 10],
+  ['<a href="#"><div style="color:red"><b>Western Australia Gvt.</div></b></a>', -25.042261, 117.793221, 11],
+  ['<a href="#"><div style="color:red"><b>Irene</div></b></a>', -25.881188, 28.226347, 12],
+  ['<a href="#"><div style="color:red"><b>Siemens Digital Industries</div></b></a>', 48.13715, 11.576124, 13],
+  ['<a href="#"><div style="color:red"><b>BSH</div></b></a>', 48.7775, 11.431111, 14],
+  ['<a href="#"><div style="color:red"><b>Lumileds</div></b></a>', 52.308056, 4.764167, 15],
+  ['<a href="#"><div style="color:red"><b>Processia</div></b></a>', 48.864716, 2.349014, 16],
+  ['<a href="#"><div style="color:red"><b>Paragon</div></b></a>', 51.509865, -0.118092, 17]
+  
+  
+/*
+ * Next point on map
+ *   -Notice how the last number within the brackets incrementally increases from the prior marker
+ *   -Use http://itouchmap.com/latlong.html to get Latitude and Longitude of a specific address
+ *   -Follow the model below:
+ *      ['<b>Name 3</b><br>Address Line 1<br>City, ST Zipcode<br>Phone: ###-###-####<br><a href="#" target="_blank">Link<a> of some sort.', ##.####, -##.####, #]
+ */
+];
+
+var locations1 = [
+ 
+        {lat: 52.377956, lng: 4.89707, color: 'yellow'},
+        {lat: 52.412811, lng: -1.778197, color: 'green'},
+		{lat: 51.0467643184, lng: 13.7380445253, color: 'blue'},
+		{lat: 59.458217, lng: 18.277688, color: 'orange'},
+		{lat: 51.050407, lng: 13.737262, color: 'cyan'},
+		{lat: 51.049999, lng: 3.733333, color: 'lightcoral'},
+		{lat: -25.042261, lng: 117.793221, color: 'orchid'},
+		{lat: -25.881188, lng: 28.226347, color: 'steelblue'},
+		{lat: 48.13715, lng: 11.576124, color: 'slateblue'},
+		{lat: 48.7775, lng: 11.431111, color: 'gold'},
+		{lat: 52.308056, lng: 4.764167, color: 'magenta'},
+		{lat: 48.864716, lng: 2.349014, color: 'plum'},
+		{lat: 51.509865, lng: -0.118092, color: 'salmon'}
+    ];
+var on = true;
+var intervalSeconds = 0.5;
+
+
+
+var map = new google.maps.Map(document.getElementById('map'), {
+  zoom: 1.8,
+  /* Zoom level of your map */
+  center: new google.maps.LatLng(20.5937, 40.9629),
+  /* coordinates for the center of your map */
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+});
+
+var infowindow = new google.maps.InfoWindow();
+
+var marker, i;
+
+for (i = 0; i < locations.length; i++) {
+  marker = new google.maps.Marker({
+    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+    map: map,
+	icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+				fillColor: "grey",
+                
+                fillOpacity: 0.8,
+                strokeWeight: 0,
+                scale: 8
+            },
+            
+  });
+  
+  
+  
+
+  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+    return function() {
+      infowindow.setContent(locations[i][0]);
+      infowindow.open(map, marker);
+	  
+    }
+  })(marker, i));
+  google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+    return function() {
+		
+        infowindow.setContent(locations[i][0]);
+        infowindow.open(map,marker);
+    }
+    })(marker, i));
+}
+
+
+
+
+}
+window.addEventListener('load', initMap);
+</SCRIPT>
+</HEAD>
+<BODY>
+<div id="map"></div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR1_QrlmCQMqe16gEasfDL-iN6jxNIfFk&callback=initialize_map">
+    </script>
+<script src="script.js"></script>
+
+</BODY>
+</HTML>
